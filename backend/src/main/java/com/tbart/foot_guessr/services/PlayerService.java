@@ -12,13 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayerService {
 
-    @Autowired
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
+
+    public PlayerService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
+
     public Player pickRandomPlayer(){
         long totalPlayer = playerRepository.count();
         int randomPosition = (int) (Math.random()*totalPlayer); //random() renvoie un double entre 0 et 1
         Pageable pageable = PageRequest.of(randomPosition, 1); //On définit la taille de chaque page à 1
         Page<Player> page = playerRepository.findAll(pageable);
         return page.getContent().getFirst();
+    }
+
+    public Player getPlayerById(Long playerId){
+        return playerRepository.findPlayerById(playerId);
     }
 }
