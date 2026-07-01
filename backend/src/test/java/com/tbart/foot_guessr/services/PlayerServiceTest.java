@@ -12,8 +12,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +43,7 @@ public class PlayerServiceTest {
     }
 
     @Test
-    void getRandomPlayer_returnsPlayerFromRepository(){
+    void getRandomPlayer_returnsPlayerFromRepository() {
         //GIVEN
         Player fakePlayer = new Player();
         fakePlayer.setId(1L);
@@ -54,5 +57,15 @@ public class PlayerServiceTest {
         //THEN
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(page.getContent().getFirst());
+    }
+
+    @Test
+    void pickRandomPlayer_whenNoPlayers_throwsException(){
+        Page<Player> page = new PageImpl<>(List.of());
+        when(playerRepository.count()).thenReturn(0L);
+        when(playerRepository.findAll(any(Pageable.class))).thenReturn(page);
+
+        assertThatThrownBy(() -> playerService.pickRandomPlayer()) //Tester sur une liste vide
+                .isInstanceOf(NoSuchElementException.class);
     }
 }
