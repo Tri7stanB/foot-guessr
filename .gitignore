@@ -32,6 +32,7 @@ target/
 
 # macOS
 .DS_Store
+/.DS_Store
 
 # Node / Angular (frontend)
 node_modules/

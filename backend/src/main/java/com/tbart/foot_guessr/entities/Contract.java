@@ -1,9 +1,13 @@
 package com.tbart.foot_guessr.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(name="contract")
 @Entity
+@Getter
+@Setter
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

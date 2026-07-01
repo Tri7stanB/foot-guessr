@@ -1,12 +1,16 @@
 package com.tbart.foot_guessr.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Table(name="player")
 @Entity
+@Getter
+@Setter
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
