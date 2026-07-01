@@ -23,7 +23,7 @@ public class Player {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "birthDate")
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @Column(name = "position")
