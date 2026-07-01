@@ -7,26 +7,22 @@ import jakarta.persistence.*;
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contract_id")
+    @Column(name = "contractId")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "playerId")
+    private Player player;
+
+    @ManyToOne
+    @JoinColumn(name = "club")
     private Club club;
 
-    @JoinColumn(name = "start")
-    private int start;
+    @Column(name = "startYear")
+    private int startYear;
 
-    @JoinColumn(name = "end")
-    private Integer end;
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
+    @Column(name = "endYear")
+    private Integer endYear;
 
     public void setId(Long id) {
         this.id = id;

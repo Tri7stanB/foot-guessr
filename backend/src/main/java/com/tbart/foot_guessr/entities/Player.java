@@ -2,6 +2,7 @@ package com.tbart.foot_guessr.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Table(name="player")
@@ -18,8 +19,8 @@ public class Player {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "birthDate")
+    private LocalDate birthDate;
 
     @Column(name = "position")
     private String position;
@@ -30,7 +31,7 @@ public class Player {
     @Column(name = "retired")
     private Boolean retired;
 
-    @Column(name = "career")
+    @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
     private List<Contract> career;
 
 
