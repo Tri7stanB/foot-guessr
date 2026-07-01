@@ -1,9 +1,13 @@
 package com.tbart.foot_guessr.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(name="club")
 @Entity
+@Getter
+@Setter
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +25,5 @@ public class Club {
 
     @Column(name = "createdIn")
     private int createdIn;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 
 }
