@@ -38,13 +38,4 @@ public class Player {
     @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
     private List<Contract> career;
 
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
 }
