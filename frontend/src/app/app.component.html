@@ -1,0 +1,25 @@
+<main>
+  <h1>Foot Guessr</h1>
+
+  <button type="button" (click)="loadRandomPlayer()">Joueur aléatoire</button>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (player(); as p) {
+    <dl>
+      <dt>Nom</dt>
+      <dd>{{ p.firstname }} {{ p.lastname }}</dd>
+
+      <dt>Poste</dt>
+      <dd>{{ p.position }}</dd>
+
+      <dt>Nationalité</dt>
+      <dd>{{ p.nationality }}</dd>
+
+      <dt>Naissance</dt>
+      <dd>{{ p.birthDate }}</dd>
+    </dl>
+  }
+</main>
