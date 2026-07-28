@@ -1,5 +1,6 @@
 package com.tbart.foot_guessr.services;
 
+import com.tbart.foot_guessr.dto.PlayerDto;
 import com.tbart.foot_guessr.entities.Player;
 import com.tbart.foot_guessr.repositories.PlayerRepository;
 import org.junit.jupiter.api.Test;
@@ -31,12 +32,13 @@ public class PlayerServiceTest {
     @Test
     void getPlayerById_returnsPlayerFromRepository() {
         // GIVEN — on prépare le contexte et on programme le mock
-        Player fakePlayer = new Player();
-        fakePlayer.setId(1L);
-        when(playerRepository.findPlayerById(1L)).thenReturn(fakePlayer);
+        Player player = new Player();
+        player.setId(1L);
+        PlayerDto fakePlayer = PlayerDto.from(player);
+        when(playerRepository.findPlayerById(1L)).thenReturn(player);
 
         // WHEN — on exécute la méthode testée
-        Player result = playerService.getPlayerById(1L);
+        PlayerDto result = playerService.getPlayerById(1L);
 
         // THEN — on vérifie le résultat
         assertThat(result).isEqualTo(fakePlayer);
@@ -52,7 +54,7 @@ public class PlayerServiceTest {
         when(playerRepository.findAll(any(Pageable.class))).thenReturn(page);
 
         //WHEN
-        Player result = playerService.pickRandomPlayer();
+        PlayerDto result = playerService.pickRandomPlayer();
 
         //THEN
         assertThat(result).isNotNull();

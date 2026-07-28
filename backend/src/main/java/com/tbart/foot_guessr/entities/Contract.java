@@ -11,21 +11,21 @@ import lombok.Setter;
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contractId")
+    @Column(name = "contract_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "playerId")
+    @JoinColumn(name = "player_id")
     private Player player;
 
     @ManyToOne
     @JoinColumn(name = "club")
     private Club club;
 
-    @Column(name = "startYear")
+    @Column(name = "start_year")
     private int startYear;
 
-    @Column(name = "endYear")
+    @Column(name = "end_year")
     private Integer endYear;
 
     public void setId(Long id) {

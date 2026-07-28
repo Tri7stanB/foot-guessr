@@ -1,5 +1,6 @@
 package com.tbart.foot_guessr.controller;
 
+import com.tbart.foot_guessr.dto.PlayerDto;
 import com.tbart.foot_guessr.entities.Player;
 import com.tbart.foot_guessr.services.PlayerService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,12 @@ public class PlayerController {
     }
 
     @GetMapping("/random")
-    public Player getRandomPlayer(){
+    public PlayerDto getRandomPlayer(){
         return playerService.pickRandomPlayer();
     }
 
     @GetMapping("/{id}")
-    public Player getPlayerById(@PathVariable(name = "id") Long playerId){
+    public PlayerDto getPlayerById(@PathVariable(name = "id") Long playerId){
         return playerService.getPlayerById(playerId);
     }
 }
