@@ -23,7 +23,7 @@
 
       <dt>Carrière</dt>
       @for (contract of p.career; track contract.club.name) {
-        <dd>{{ contract.club.name }} ({{ contract.startYear }} - {{ contract.endYear }})</dd>
+        <dd>{{ contract.club.name }} ({{ contract.startYear }} - @if (contract.endYear !== null) { {{ contract.endYear }} })</dd>
       }
     </dl>
   }
