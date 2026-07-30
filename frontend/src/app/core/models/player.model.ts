@@ -1,4 +1,5 @@
 import { Contract } from './contract.model';
+import { List } from 'immutable';
 
 /** Miroir de com.tbart.foot_guessr.entities.Player */
 export interface Player {
@@ -10,6 +11,5 @@ export interface Player {
   position: string;
   nationality: string;
   retired: boolean;
-  /** Absent tant qu'aucun contrat n'est rattaché au joueur */
-  career?: Contract[] | null;
+  career?: List<Contract>;
 }

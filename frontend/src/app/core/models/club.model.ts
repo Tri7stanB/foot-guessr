@@ -4,5 +4,4 @@ export interface Club {
   name: string;
   country: string;
   league: string;
-  createdIn: number;
 }
