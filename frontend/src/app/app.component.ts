@@ -14,6 +14,8 @@ export class AppComponent {
 
   readonly player = signal<Player | null>(null);
   readonly error = signal<string | null>(null);
+  readonly verification = signal<string | null>(null);
+  readonly guess = signal('');  
 
   loadRandomPlayer(): void {
     this.error.set(null);
@@ -22,5 +24,27 @@ export class AppComponent {
       next: (player) => this.player.set(player),
       error: () => this.error.set("Impossible de joindre l'API (le back tourne-t-il sur :8080 ?)"),
     });
+  }
+
+  onGuessInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.guess.set(input.value);
+  }
+
+  submitGuess(): void {
+    const currentPlayer = this.player();
+    if (!currentPlayer) {
+      this.error.set('Aucun joueur chargé pour le moment.');
+      return;
+    }
+    
+    const guessValue = this.guess().trim().toLowerCase();
+    const actualName = `${currentPlayer.firstname} ${currentPlayer.lastname}`.toLowerCase();
+
+    if (guessValue === actualName || guessValue === currentPlayer.lastname.toLowerCase()) {
+      this.verification.set(`Bonne réponse !`);
+    } else {
+      this.verification.set('Ce n\'est pas le bon joueur.');
+    }
   }
 }

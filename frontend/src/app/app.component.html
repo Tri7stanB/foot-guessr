@@ -1,8 +1,15 @@
 <main>
   <h1>Foot Guessr</h1>
 
+  <div id="controls">
   <button type="button" (click)="loadRandomPlayer()">Joueur aléatoire</button>
+  <input type="text" placeholder="Rechercher un joueur..." [value]="guess()" (input)="onGuessInput($event)" />
+  <button type="button" (click)="submitGuess()">Valider</button>
+  </div>
 
+  @if (verification()) {
+    <p class="verification">{{ verification() }}</p>
+  }
   @if (error()) {
     <p class="error">{{ error() }}</p>
   }

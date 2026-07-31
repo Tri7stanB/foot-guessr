@@ -26,3 +26,9 @@ dd {
 .error {
   color: #b00020;
 }
+
+controls {
+  display: flex;
+  gap: 10rem;
+  margin-bottom: 1rem;
+}
