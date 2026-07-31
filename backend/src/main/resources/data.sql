@@ -45,7 +45,7 @@ INSERT INTO club (name, country, league, created_in) VALUES
 INSERT INTO contract (player_id, club, start_year, end_year) VALUES
                                                               -- Zidane
                                                               ((SELECT player_id FROM player WHERE lastname='Zidane'),      (SELECT club_id FROM club WHERE name='AS Cannes'),           1988, 1992),
-                                                              ((SELECT player_id FROM player WHERE lastname='Zidane'),      (SELECT club_id FROM club WHERE name='Girondins Bordeaux'),  1992, 1996),
+                                                              ((SELECT player_id FROM player WHERE lastname='Zidane'),      (SELECT club_id FROM club WHERE name='Girondins de Bordeaux'),  1992, 1996),
                                                               ((SELECT player_id FROM player WHERE lastname='Zidane'),      (SELECT club_id FROM club WHERE name='Juventus'),            1996, 2001),
                                                               ((SELECT player_id FROM player WHERE lastname='Zidane'),      (SELECT club_id FROM club WHERE name='Real Madrid'),         2001, 2006),
                                                               -- Mbappe
@@ -82,7 +82,7 @@ INSERT INTO contract (player_id, club, start_year, end_year) VALUES
                                                               -- Drogba
                                                               ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Le Mans FC'),          1998, 2002),
                                                               ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='EA Guingamp'),         2002, 2003),
-                                                              ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Olympique Marseille'), 2003, 2004),
+                                                              ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Olympique de Marseille'), 2003, 2004),
                                                               ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Chelsea'),             2004, 2012),
                                                               ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Shanghai Shenhua'),    2012, 2013),
                                                               ((SELECT player_id FROM player WHERE lastname='Drogba'),      (SELECT club_id FROM club WHERE name='Galatasaray'),         2013, 2014),
