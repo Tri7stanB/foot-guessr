@@ -1,7 +1,10 @@
 main {
-  max-width: 40rem;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: left;
 }
 
 button {
@@ -11,8 +14,12 @@ button {
 
 dl {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.25rem 1rem;
+  grid-template-columns: auto;
+  gap: 0.5rem 2rem;
+}
+
+dl#playerInfo {
+  grid-template-columns: auto  auto;
 }
 
 dt {
@@ -27,8 +34,26 @@ dd {
   color: #b00020;
 }
 
-controls {
+#new-player {
   display: flex;
-  gap: 10rem;
   margin-bottom: 1rem;
+  justify-content: center;
+}
+
+#guess {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+#player {
+  gap: 5rem;
+  display: flex;
+}
+
+#career {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

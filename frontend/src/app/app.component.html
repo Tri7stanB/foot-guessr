@@ -1,10 +1,13 @@
 <main>
   <h1>Foot Guessr</h1>
 
-  <div id="controls">
-  <button type="button" (click)="loadRandomPlayer()">Joueur aléatoire</button>
-  <input type="text" placeholder="Rechercher un joueur..." [value]="guess()" (input)="onGuessInput($event)" />
-  <button type="button" (click)="submitGuess()">Valider</button>
+  <div id="new-player">
+    <button id="newPlayer" type="button" (click)="loadRandomPlayer()">Joueur aléatoire</button>
+  </div>
+  
+  <div id="guess"> 
+    <input type="text" placeholder="Proposer un joueur..." [value]="guess()" (input)="onGuessInput($event)" />
+    <button type="button" (click)="submitGuess()">Valider</button>
   </div>
 
   @if (verification()) {
@@ -15,7 +18,8 @@
   }
 
   @if (player(); as p) {
-    <dl>
+    <div id="player">
+    <dl id="playerInfo">
       <dt>Nom</dt>
       <dd>{{ p.firstname }} {{ p.lastname }}</dd>
 
@@ -27,11 +31,14 @@
 
       <dt>Naissance</dt>
       <dd>{{ p.birthDate }}</dd>
+    </dl>
+    <dl id="career">
 
       <dt>Carrière</dt>
-      @for (contract of p.career; track contract.club.name) {
-        <dd>{{ contract.club.name }} ({{ contract.startYear }} - @if (contract.endYear !== null) { {{ contract.endYear }} })</dd>
+      @for (contract of p.career; track contract.startYear) {
+        <dd>{{ contract.startYear }} - @if (contract.endYear !== null) { {{ contract.endYear }} } : {{ contract.club.name }}</dd>
       }
     </dl>
+    </div>
   }
 </main>
