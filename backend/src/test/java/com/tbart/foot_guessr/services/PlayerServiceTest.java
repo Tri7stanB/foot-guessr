@@ -13,12 +13,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,7 +46,7 @@ public class PlayerServiceTest {
     }
 
     @Test
-    void getRandomPlayer_returnsPlayerFromRepository() {
+    void pickRandomPlayer_returnsPlayerFromRepository() {
         //GIVEN
         Player fakePlayer = new Player();
         fakePlayer.setId(1L);
@@ -54,20 +55,33 @@ public class PlayerServiceTest {
         when(playerRepository.findAll(any(Pageable.class))).thenReturn(page);
 
         //WHEN
-        PlayerDto result = playerService.pickRandomPlayer();
+        Optional<PlayerDto> result = playerService.pickRandomPlayer(false);
 
         //THEN
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(page.getContent().getFirst());
+        assertThat(result).contains(PlayerDto.from(fakePlayer));
     }
 
     @Test
-    void pickRandomPlayer_whenNoPlayers_throwsException(){
-        Page<Player> page = new PageImpl<>(List.of());
+    void pickRandomPlayer_whenNoPlayers_returnsEmpty() {
         when(playerRepository.count()).thenReturn(0L);
-        when(playerRepository.findAll(any(Pageable.class))).thenReturn(page);
 
-        assertThatThrownBy(() -> playerService.pickRandomPlayer()) //Tester sur une liste vide
-                .isInstanceOf(NoSuchElementException.class);
+        assertThat(playerService.pickRandomPlayer(false)).isEmpty(); //Tester sur une liste vide
+    }
+
+    @Test
+    void pickRandomPlayer_inFamousMode_neverPicksOutsideFamousPlayers() {
+        //GIVEN
+        Player fakePlayer = new Player();
+        fakePlayer.setId(1L);
+        when(playerRepository.countByFamousTrue()).thenReturn(2L);
+        when(playerRepository.findAllByFamousTrue(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(fakePlayer)));
+
+        //WHEN
+        Optional<PlayerDto> result = playerService.pickRandomPlayer(true);
+
+        //THEN — le tirage non filtré ne doit jamais être sollicité dans ce mode
+        assertThat(result).isPresent();
+        verify(playerRepository, never()).findAll(any(Pageable.class));
     }
 }
