@@ -1,6 +1,5 @@
-/** Miroir de com.tbart.foot_guessr.entities.Club */
+/** Miroir de com.tbart.foot_guessr.dto.ClubDto */
 export interface Club {
-  id: number;
   name: string;
   country: string;
   league: string;

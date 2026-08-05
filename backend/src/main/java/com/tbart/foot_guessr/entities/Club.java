@@ -14,6 +14,10 @@ public class Club {
     @Column(name = "club_id")
     private Long id;
 
+    // Clé naturelle issue de Wikidata : sert à dédupliquer les clubs à l'import
+    @Column(name = "wikidata_id", unique = true)
+    private String wikidataId;
+
     @Column(name = "name")
     private String name;
 
@@ -23,7 +27,8 @@ public class Club {
     @Column(name = "league")
     private String league;
 
+    // Integer et non int : l'année de fondation est absente des données Wikidata actuelles
     @Column(name = "created_in")
-    private int createdIn;
+    private Integer createdIn;
 
 }

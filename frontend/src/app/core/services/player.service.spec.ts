@@ -10,9 +10,7 @@ describe('PlayerService', () => {
   let httpMock: HttpTestingController;
 
   const zidane: Player = {
-    id: 1,
-    firstname: 'Zinedine',
-    lastname: 'Zidane',
+    name: 'Zinedine Zidane',
     birthDate: '1972-06-23',
     position: 'Milieu',
     nationality: 'France',

@@ -6,8 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record PlayerDto(
-        String firstname,
-        String lastname,
+        String name,
         LocalDate birthDate,
         String nationality,
         String position,
@@ -20,8 +19,7 @@ public record PlayerDto(
                 : player.getCareer().stream().map(CareerStepDto::from).toList();
 
         return new PlayerDto(
-                player.getFirstname(),
-                player.getLastname(),
+                player.getName(),
                 player.getBirthDate(),
                 player.getNationality(),
                 player.getPosition(),

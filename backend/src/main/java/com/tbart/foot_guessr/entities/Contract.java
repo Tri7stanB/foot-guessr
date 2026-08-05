@@ -14,12 +14,12 @@ public class Contract {
     @Column(name = "contract_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "player_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "player_id", nullable = false)
     private Player player;
 
-    @ManyToOne
-    @JoinColumn(name = "club")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "club", nullable = false)
     private Club club;
 
     @Column(name = "start_year")

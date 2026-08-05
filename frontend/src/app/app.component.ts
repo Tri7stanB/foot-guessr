@@ -15,7 +15,9 @@ export class AppComponent {
   readonly player = signal<Player | null>(null);
   readonly error = signal<string | null>(null);
   readonly verification = signal<string | null>(null);
-  readonly guess = signal('');  
+  readonly guess = signal('');
+
+  readonly infos = signal(new Set<string>());
 
   loadRandomPlayer(): void {
     this.error.set(null);
@@ -24,6 +26,8 @@ export class AppComponent {
       next: (player) => this.player.set(player),
       error: () => this.error.set("Impossible de joindre l'API (le back tourne-t-il sur :8080 ?)"),
     });
+
+    this.infos.set(new Set<string>());
   }
 
   onGuessInput(event: Event): void {
@@ -38,13 +42,42 @@ export class AppComponent {
       return;
     }
     
-    const guessValue = this.guess().trim().toLowerCase();
-    const actualName = `${currentPlayer.firstname} ${currentPlayer.lastname}`.toLowerCase();
-
-    if (guessValue === actualName || guessValue === currentPlayer.lastname.toLowerCase()) {
+    if (this.acceptedAnswers(currentPlayer.name).includes(this.normalize(this.guess()))) {
       this.verification.set(`Bonne réponse !`);
     } else {
       this.verification.set('Ce n\'est pas le bon joueur.');
     }
+  }
+
+  /**
+   * Nom complet, plus le nom de famille seul — c'est-à-dire tout ce qui suit le premier
+   * espace, ce qui conserve les particules (« van Persie », « De Bruyne »).
+   */
+  private acceptedAnswers(name: string): string[] {
+    const answers = [name];
+
+    const firstSpace = name.indexOf(' ');
+    if (firstSpace !== -1) {
+      answers.push(name.slice(firstSpace + 1));
+    }
+
+    return answers.map((answer) => this.normalize(answer));
+  }
+
+  /** Minuscules, espaces superflus et accents retirés, pour accepter « pele » comme « Pelé ». */
+  private normalize(value: string): string {
+    return value
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '');
+  }
+
+  isInfoRevealed(info: string): boolean {
+    return this.infos().has(info);
+  }
+
+  revealInfo(info: string): void {
+    this.infos.update((currentInfos) => new Set([...currentInfos, info])); 
   }
 }

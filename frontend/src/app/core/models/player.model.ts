@@ -1,15 +1,13 @@
 import { Contract } from './contract.model';
-import { List } from 'immutable';
 
-/** Miroir de com.tbart.foot_guessr.entities.Player */
+/** Miroir de com.tbart.foot_guessr.dto.PlayerDto */
 export interface Player {
-  id: number;
-  firstname: string;
-  lastname: string;
+  /** Nom d'usage : la réponse attendue */
+  name: string;
   /** Format ISO renvoyé par LocalDate, ex : '1972-06-23' */
   birthDate: string;
   position: string;
   nationality: string;
   retired: boolean;
-  career?: List<Contract>;
+  career: Contract[];
 }

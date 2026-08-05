@@ -21,22 +21,42 @@
     <div id="player">
     <dl id="playerInfo">
       <dt>Nom</dt>
-      <dd>{{ p.firstname }} {{ p.lastname }}</dd>
+      @if (isInfoRevealed('name')) {
+        <dd>{{ p.name }}</dd>
+      } @else {
+        <button type="button" (click)="revealInfo('name')">Révéler</button>
+      }
 
       <dt>Poste</dt>
-      <dd>{{ p.position }}</dd>
+      @if (isInfoRevealed('position')) {
+        <dd>{{ p.position }}</dd>
+      } @else {
+        <button type="button" (click)="revealInfo('position')">Révéler</button>
+      }
 
       <dt>Nationalité</dt>
-      <dd>{{ p.nationality }}</dd>
+      @if (isInfoRevealed('nationality')) {
+        <dd>{{ p.nationality }}</dd>
+      } @else {
+        <button type="button" (click)="revealInfo('nationality')">Révéler</button>
+      }
 
       <dt>Naissance</dt>
-      <dd>{{ p.birthDate }}</dd>
+      @if (isInfoRevealed('birthDate')) {
+        <dd>{{ p.birthDate }}</dd>
+      } @else {
+        <button type="button" (click)="revealInfo('birthDate')">Révéler</button>
+      }
     </dl>
     <dl id="career">
 
       <dt>Carrière</dt>
       @for (contract of p.career; track contract.startYear) {
-        <dd>{{ contract.startYear }} - @if (contract.endYear !== null) { {{ contract.endYear }} } : {{ contract.club.name }}</dd>
+        @if (isInfoRevealed('club-' + contract.startYear)) {
+          <dd>{{ contract.startYear }} - @if (contract.endYear !== null) { {{ contract.endYear }} } : {{ contract.club.name }}</dd>
+        } @else {
+          <button type="button" (click)="revealInfo('club-' + contract.startYear)">Révéler</button>
+        }
       }
     </dl>
     </div>

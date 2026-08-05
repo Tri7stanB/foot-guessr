@@ -1,0 +1,6 @@
+# Ne jamais copier ces dossiers dans l'image : ils seraient reconstruits de toute
+# façon, et node_modules de Windows casserait le build Linux.
+**/node_modules
+**/dist
+**/target
+.git
