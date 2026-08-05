@@ -10,9 +10,9 @@ export class PlayerService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/players`;
 
-  /** GET /api/players/random */
-  getRandomPlayer(): Observable<Player> {
-    return this.http.get<Player>(`${this.baseUrl}/random`);
+  /** GET /api/players/random — `famousOnly` restreint le tirage aux joueurs connus. */
+  getRandomPlayer(famousOnly: boolean): Observable<Player> {
+    return this.http.get<Player>(`${this.baseUrl}/random`, { params: { famousOnly } });
   }
 
   /** GET /api/players/{id} */

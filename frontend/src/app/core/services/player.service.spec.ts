@@ -31,9 +31,9 @@ describe('PlayerService', () => {
 
   it('appelle /api/players/random et renvoie le joueur', () => {
     let result: Player | undefined;
-    service.getRandomPlayer().subscribe((player) => (result = player));
+    service.getRandomPlayer(true).subscribe((player) => (result = player));
 
-    const req = httpMock.expectOne('/api/players/random');
+    const req = httpMock.expectOne('/api/players/random?famousOnly=true');
     expect(req.request.method).toBe('GET');
     req.flush(zidane);
 

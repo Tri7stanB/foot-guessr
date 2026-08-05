@@ -34,6 +34,19 @@ dd {
   color: #b00020;
 }
 
+.modes {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+
+  .active {
+    background: #1b1b1b;
+    color: #fff;
+    border-color: #1b1b1b;
+  }
+}
+
 #new-player {
   display: flex;
   margin-bottom: 1rem;

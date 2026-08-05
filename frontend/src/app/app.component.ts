@@ -19,15 +19,32 @@ export class AppComponent {
 
   readonly infos = signal(new Set<string>());
 
+  /** true = mode facile (joueurs connus), false = mode difficile (toute la base). */
+  readonly famousOnly = signal(true);
+
+  setMode(famousOnly: boolean): void {
+    if (this.famousOnly() === famousOnly) {
+      return;
+    }
+    this.famousOnly.set(famousOnly);
+    this.loadRandomPlayer();
+  }
+
   loadRandomPlayer(): void {
     this.error.set(null);
-
-    this.playerService.getRandomPlayer().subscribe({
-      next: (player) => this.player.set(player),
-      error: () => this.error.set("Impossible de joindre l'API (le back tourne-t-il sur :8080 ?)"),
-    });
-
+    this.verification.set(null);
+    this.guess.set('');
     this.infos.set(new Set<string>());
+
+    this.playerService.getRandomPlayer(this.famousOnly()).subscribe({
+      next: (player) => this.player.set(player),
+      error: (response) =>
+        this.error.set(
+          response.status === 404
+            ? 'Aucun joueur disponible dans ce mode.'
+            : "Impossible de joindre l'API.",
+        ),
+    });
   }
 
   onGuessInput(event: Event): void {

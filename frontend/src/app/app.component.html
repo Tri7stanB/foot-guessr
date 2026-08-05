@@ -1,6 +1,15 @@
 <main>
   <h1>Foot Guessr</h1>
 
+  <div class="modes" role="group" aria-label="Difficulté">
+    <button type="button" [class.active]="famousOnly()" (click)="setMode(true)">
+      Facile
+    </button>
+    <button type="button" [class.active]="!famousOnly()" (click)="setMode(false)">
+      Difficile
+    </button>
+  </div>
+
   <div id="new-player">
     <button id="newPlayer" type="button" (click)="loadRandomPlayer()">Joueur aléatoire</button>
   </div>
